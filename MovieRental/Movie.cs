@@ -1,38 +1,34 @@
-﻿// NUnit 3 tests
-// See documentation : https://github.com/nunit/docs/wiki/NUnit-Documentation
-using System;
-
-namespace MovieRental
+﻿namespace MovieRental
 {
     public class Movie
     {
         private string title;
-        private Type type;
+        private MovieType _movieType;
 
-        public Movie(string title, Type type)
+        public Movie(string title, MovieType movieType)
         {
             this.title = title;
-            this.type = type;
-        }
-
-        public enum Type
-        {
-            NEW_RELEASE,
-            REGULAR,
-            CHILDREN
+            this._movieType = movieType;
         }
 
         public string getTitle()
         {
             return title;
         }
-        public Type getPriceCode()
+
+        public MovieType getPriceCode()
         {
-            return type;
+            return _movieType;
         }
+
         public override string ToString()
         {
             return title;
+        }
+
+        public bool isNewRelease()
+        {
+            return _movieType == MovieType.NEW_RELEASE;
         }
     }
 }

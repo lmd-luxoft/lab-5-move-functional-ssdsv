@@ -12,20 +12,20 @@ namespace MovieRental
         [Test]
         public void NameFilmShouldBeCorrect()
         {
-	        Movie movie = new Movie("Rio2", Movie.Type.NEW_RELEASE);
+	        Movie movie = new Movie("Rio2", MovieType.NEW_RELEASE);
             Assert.AreEqual("Rio2", movie.getTitle());
         }
         [Test]
         public void TypeFilmShouldBeCorrect()
         {
 
-            Movie movie = new Movie("Rio2", Movie.Type.NEW_RELEASE);
-            Assert.AreEqual(Movie.Type.NEW_RELEASE, movie.getPriceCode());
+            Movie movie = new Movie("Rio2", MovieType.NEW_RELEASE);
+            Assert.AreEqual(MovieType.NEW_RELEASE, movie.getPriceCode());
         }
         [Test]
         public void RentalShouldBeCorrectMovie()
         {
-            Movie movie = new Movie("Angry Birds", Movie.Type.REGULAR);
+            Movie movie = new Movie("Angry Birds", MovieType.REGULAR);
             Rental rental = new Rental(movie, 20);
             Assert.AreEqual(movie, rental.getMovie());
         }
@@ -33,7 +33,7 @@ namespace MovieRental
         public void RentalShouldBeCorrectDayRented()
         {
 
-            Movie movie = new Movie("Angry Birds", Movie.Type.REGULAR);
+            Movie movie = new Movie("Angry Birds", MovieType.REGULAR);
             Rental rental = new Rental(movie, 20);
             Assert.AreEqual(20, rental.getDaysRented());
         }
@@ -49,15 +49,15 @@ namespace MovieRental
 
     Customer customer = new Customer("Bug");
 
-        Movie movie1 = new Movie("Angry Birds", Movie.Type.CHILDREN);
+        Movie movie1 = new Movie("Angry Birds", MovieType.CHILDREN);
         Rental rental1 = new Rental(movie1, 2);
         customer.addRental(rental1);
 
-	Movie movie2 = new Movie("StarWar", Movie.Type.NEW_RELEASE);
+	Movie movie2 = new Movie("StarWar", MovieType.NEW_RELEASE);
         Rental rental2 = new Rental(movie2, 10);
         customer.addRental(rental2);
 
-	Movie movie3 = new Movie("Hatico", Movie.Type.REGULAR);
+	Movie movie3 = new Movie("Hatico", MovieType.REGULAR);
         Rental rental3 = new Rental(movie3, 4);
         customer.addRental(rental3);
 

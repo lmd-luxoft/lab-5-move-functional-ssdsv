@@ -1,8 +1,4 @@
-﻿// NUnit 3 tests
-// See documentation : https://github.com/nunit/docs/wiki/NUnit-Documentation
-using System;
-
-namespace MovieRental
+﻿namespace MovieRental
 {
     internal class Rental
     {
@@ -17,12 +13,17 @@ namespace MovieRental
 
         internal Movie getMovie()
         {
-           return movie;
+            return movie;
         }
 
         internal int getDaysRented()
         {
             return daysRental;
+        }
+
+        internal bool isTwoDaysOrOverNewReleaseMovie()
+        {
+            return movie.isNewRelease() && daysRental >= 2;
         }
     }
 }
