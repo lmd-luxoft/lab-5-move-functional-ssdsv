@@ -1,16 +1,13 @@
-﻿// NUnit 3 tests
-// See documentation : https://github.com/nunit/docs/wiki/NUnit-Documentation
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace MovieRental
 {
     public class Customer
     {
         List<Rental> rentals = new List<Rental>();
-        private string name;
+        private readonly string name;
+        private readonly MoviePricer pricer = new MoviePricer();
+        private readonly BonusProgram bonusProgram = new BonusProgram();
 
         public Customer(string name)
         {
@@ -23,47 +20,28 @@ namespace MovieRental
 
         internal void addRental(Rental rental)
         {
-           rentals.Add(rental);
+            rentals.Add(rental);
         }
 
         internal string statement()
         {
-            StringBuilder report = new StringBuilder();
-            report.Append($"учет аренды для {getName()}\n");
+            var report = new ReportBuilder(getName());
+
             double totalAmount = 0;
-            
             int frequentRenterPoints = 0;
+
             foreach (var item in rentals)
             {
-                double thisAmount = 0;
-                switch (item.getMovie().getPriceCode())
-                {
-                    case Movie.Type.REGULAR:
-                        thisAmount += 2;
-                        if(item.getDaysRented() > 2)
-                            thisAmount += (item.getDaysRented() - 2) * 15;
-                        break;
-                    case Movie.Type.NEW_RELEASE:
-                        thisAmount += item.getDaysRented() * 3;
-                        break;
-                    case Movie.Type.CHILDREN:
-                        thisAmount += 15;
-                        if(item.getDaysRented() > 3)
-                            thisAmount += (item.getDaysRented() - 3) * 15;
-                        break;
-                }
-                
-                //добавить очки для активного арендатора
-                frequentRenterPoints++;
-                //бонус за аренду новинки на два дня
-                if (item.getMovie().getPriceCode() == Movie.Type.NEW_RELEASE && item.getDaysRented() > 1)
-                    frequentRenterPoints++;
-                report.Append($"\t{item.getMovie()}\t{thisAmount}\n");
-               
+                double thisAmount = pricer.GetMoviePrice(item.getMovie(), item.getDaysRented());
+                report.AddRental(item, thisAmount);
+
                 totalAmount += thisAmount;
+                frequentRenterPoints += bonusProgram.GetPoints(item);
             }
-            report.Append($"Сумма задолженности составляет {totalAmount}\nВы заработали {frequentRenterPoints} очков за активность");
-            return report.ToString();
+
+            report.AddSummary(totalAmount, frequentRenterPoints);
+
+            return report.GetReport();
         }
     }
 }

@@ -40,8 +40,16 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BonusProgram.cs" />
+    <Compile Include="ReportBuilder.cs" />
+    <Compile Include="Tarificators\ChildrenMovieTarificator.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="IMovieTarificator.cs" />
     <Compile Include="Movie.cs" />
+    <Compile Include="MoviePricer.cs" />
+    <Compile Include="MovieType.cs" />
+    <Compile Include="Tarificators\NewReleaseMovieTarificator.cs" />
+    <Compile Include="Tarificators\RegularMovieTarificator.cs" />
     <Compile Include="Rental.cs" />
     <Compile Include="TestClass.cs" />
   </ItemGroup>
